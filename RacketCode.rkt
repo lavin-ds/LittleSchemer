@@ -94,3 +94,29 @@
 
 (define (sub1 x)
   (- x 1))
+
+(define (+. x y)
+    (cond
+      ((zero? y) x)
+      (else
+       (add1 (+. x (sub1 y))))))
+
+
+(define (-. x y)
+  (cond
+    ((zero? y) x)
+    (else
+     (sub1 (-. x (sub1 y))))))
+  
+(define (tup? l)
+  (cond
+    ((null? l) #t)
+    (else
+     (and (number? (car l))
+         (tup? (cdr l))))))
+
+(define (addtup tup)
+  (cond
+    ((null? tup) 0)
+    (else
+     (+. (car tup) (addtup (cdr tup))))))
