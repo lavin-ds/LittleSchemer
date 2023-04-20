@@ -120,3 +120,17 @@
     ((null? tup) 0)
     (else
      (+. (car tup) (addtup (cdr tup))))))
+
+(define (x. a b )
+  (cond
+    ((zero? b) 0)
+    (else
+     (+. a (x. a (sub1 b))))))
+
+(define (tup+ tup1 tup2)
+  (cond
+    ((null? tup1) tup2)
+    ((null? tup2) tup1)
+    (else
+     (cons (+. (car tup1) (car tup2))
+           (tup+ (cdr tup1) (cdr tup2))))))
