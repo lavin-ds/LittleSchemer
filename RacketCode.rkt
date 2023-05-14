@@ -14,8 +14,7 @@
     (else
      (or (eq? (car lat) x)
          (member? x (cdr lat))))))
-               
-     
+                    
 (define (rember x lat)
   (cond
     ((null? lat) (quote()))
@@ -134,3 +133,17 @@
     (else
      (cons (+. (car tup1) (car tup2))
            (tup+ (cdr tup1) (cdr tup2))))))
+
+(define (>. x y)
+  (cond
+    ((zero? x) #f)
+    ((zero? y) #t)
+    (else
+     (>. (sub1 x) (sub1 y)))))
+
+(define (<. x y)
+  (cond
+    ((zero? y) #f)
+    ((zero? x) #t)
+    (else
+     (<. (sub1 x) (sub1 y)))))
