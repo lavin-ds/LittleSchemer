@@ -147,3 +147,18 @@
     ((zero? x) #t)
     (else
      (<. (sub1 x) (sub1 y)))))
+
+(define (=. x y)
+  (cond
+    ((zero? x) (zero? y))
+    ((zero? x) #f)
+    (else
+     (=. (sub1 x) (sub1 y)))))
+
+(define (=.. x y)
+  (cond
+    ((>. x y) #f)
+    ((<. x y) #f)
+    (else #t)))
+
+    
