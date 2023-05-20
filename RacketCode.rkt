@@ -120,11 +120,11 @@
     (else
      (+. (car tup) (addtup (cdr tup))))))
 
-(define (x. a b )
+(define (*. a b )
   (cond
     ((zero? b) 0)
     (else
-     (+. a (x. a (sub1 b))))))
+     (+. a (*. a (sub1 b))))))
 
 (define (tup+ tup1 tup2)
   (cond
@@ -161,4 +161,70 @@
     ((<. x y) #f)
     (else #t)))
 
-    
+(define (^. x y)
+  (cond
+    ((zero? y) 1)
+    (else
+     (*. x (^. x (sub1 y))))))
+
+(define (/. x y )
+  (cond
+    ((<. x y ) 0)
+    (else
+     (add1 (/. (-. x y) y)))))
+
+(define (length lat)
+  (cond
+    ((null? lat) 0)
+    (else
+     (add1 (length (cdr lat))))))
+
+(define (pick n lat)
+  (cond
+    ((zero? (sub1 n)) (car lat))
+    (else
+     (pick (sub1 n) (cdr lat)))))
+
+(define (rempick n lat)
+  (cond
+    ((zero? (sub1 n)) (cdr lat))
+    (else
+     (cons (car lat) (rempick (sub1 n) (cdr lat))))))
+
+(define (no-nums lat)
+  (cond
+    ((null? lat) (quote()))
+    ((number? (car lat)) (no-nums (cdr lat)))
+    (else
+     (cons (car lat) (no-nums (cdr lat))))))
+
+
+(define (all-nums lat)
+  (cond
+    ((null? lat) (quote()))
+    ((number? (car lat)) (cons (car lat) (all-nums (cdr lat))))
+    (else
+     (all-nums (cdr lat)))))
+
+(define (eqan? x y)
+  (cond
+    ((and (number? x)(number? y)) (= x y))
+    ((or (number? x)(number? y)) #f)
+    (else
+     (eq? x y))))
+
+(define (occur a lat)
+  (cond
+    ((null? lat) 0)
+    ((eqan? a (car lat)) (add1 (occur a (cdr lat))))
+    (else
+     (occur a (cdr lat)))))
+
+(define (one? x)
+    (and (number? x) (= 1 x)))
+
+(define (rempick- n lat)
+  (cond
+    ((one? n) (cdr lat))
+    (else
+     (cons (car lat) (rempick (sub1 n) (cdr lat))))))
